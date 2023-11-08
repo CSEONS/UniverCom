@@ -8,7 +8,7 @@ namespace UniverCom.MediatR.Areas.Admin.CreateUser
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string? SecondName { get; set; }
+        public string? Fathername { get; set; }
         public string Password { get; set; }
         public string RoleName { get; set; }
     }

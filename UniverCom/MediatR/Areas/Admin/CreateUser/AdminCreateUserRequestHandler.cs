@@ -34,7 +34,7 @@ namespace UniverCom.MediatR.Areas.Admin.CreateUser
                 UserName = request.Username,
                 Firstname = request.FirstName,
                 Lastname = request.LastName,
-                Secondname = request.LastName,
+                Fathername = request.Fathername,
             };
 
             await _userManager.CreateAsync(user);
