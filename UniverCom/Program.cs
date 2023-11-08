@@ -18,6 +18,8 @@ namespace UniverCom
 
             builder.Configuration.Bind("Project", new Config());
 
+            builder.Services.AddCors();
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -60,6 +62,8 @@ namespace UniverCom
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 
