@@ -18,7 +18,17 @@ namespace UniverCom
 
             builder.Configuration.Bind("Project", new Config());
 
-            builder.Services.AddCors();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowAnyOrigin()
+                           .WithExposedHeaders("Content-Disposition")
+                           .SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
+                });
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -63,7 +73,7 @@ namespace UniverCom
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 
