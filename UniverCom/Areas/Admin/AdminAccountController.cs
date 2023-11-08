@@ -32,14 +32,14 @@ namespace UniverCom.Areas.Admin
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(AdminCreateUserRequest request)
+        public async Task<IActionResult> CreateUser([FromBody] AdminCreateUserRequest request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpPost("SignIn")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(AdminSignInRequest request)
+        public async Task<IActionResult> SignIn([FromBody] AdminSignInRequest request)
         {
             return await _mediator.Send(request);
         }
