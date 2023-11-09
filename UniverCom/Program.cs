@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Reflection;
 using System.Text;
 using UniverCom.Domain;
@@ -23,9 +24,8 @@ namespace UniverCom
                 options.AddPolicy("AllowAll", builder =>
                 {
                     builder.AllowAnyHeader()
-                           .WithOrigins("http://localgost:3000")
+                           .WithOrigins("http://localhost:3000")
                            .AllowAnyMethod()
-                           .AllowAnyOrigin()
                            .WithExposedHeaders("Content-Disposition")
                            .SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
                 });
@@ -71,19 +71,22 @@ namespace UniverCom
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseCors("AllowAll");
+
+            app.Use((context, next) =>
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000");
+                return next();
+            });
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
 
             app.Run();
-
         }
     }
 
@@ -91,9 +94,8 @@ namespace UniverCom
     {
         public const string ISSUER = "CSEON";
         public const string AUDIENCE = "VolgaItClients";
-        const string KEY = "UltimasecretKeyFor123_111!@#----12sadOHijidbsajKJBNDkjbsadkjabsdkjBJHDBjsbdkajdbkJBDjsbdkj^*7687264";
+        private const string KEY = "UltimasecretKeyFor123_111!@#----12sadOHijidbsajKJBNDkjbsadkjabsdkjBJHDBjsbdkajdbkJBDjsbdkj^*7687264";
         public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
             new(Encoding.UTF8.GetBytes(KEY));
     }
-
 }
