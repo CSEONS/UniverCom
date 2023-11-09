@@ -23,6 +23,7 @@ namespace UniverCom
                 options.AddPolicy("AllowAll", builder =>
                 {
                     builder.AllowAnyHeader()
+                           .WithOrigins("http://localgost:3000")
                            .AllowAnyMethod()
                            .AllowAnyOrigin()
                            .WithExposedHeaders("Content-Disposition")
