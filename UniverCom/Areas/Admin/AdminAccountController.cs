@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using UniverCom.MediatR.Areas.Admin;
 using UniverCom.MediatR.Areas.Admin.CreateUser;
@@ -8,6 +9,7 @@ using UniverCom.MediatR.Areas.Admin.SignIn;
 namespace UniverCom.Areas.Admin
 {
     [ApiController]
+    [EnableCors("AllowAll")]
     [Route("Admin/Account")]
     [Authorize]
     public class AdminAccountController : ControllerBase
